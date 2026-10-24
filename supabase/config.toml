@@ -1,0 +1,20 @@
+# Minimal config for local `supabase start`. Review auth settings before production.
+project_id = "project-fluent"
+
+[auth]
+site_url = "http://localhost:5173"
+additional_redirect_urls = ["http://localhost:5173/auth/login", "http://localhost:5173/auth/reset-password"]
+enable_signup = true
+minimum_password_length = 10
+
+[auth.email]
+enable_confirmations = true
+
+[functions.submit-attempt]
+verify_jwt = true
+
+[functions.delete-account]
+verify_jwt = true
+
+[functions.submit-practice]
+verify_jwt = true

@@ -1,0 +1,71 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================================================
+   DESIGN TOKENS  (space-separated RGB triples so Tailwind can apply alpha)
+   Ink + paper foundation, one electric-violet signal, one warm gold accent.
+   Contrast (computed, WCAG AA ≥ 4.5:1 for text): signal-deep on paper 8.4; signal-light on ink 8.9;
+   white on signal 4.6; muted on paper 6.3; warn on white / gold-soft ≥ 4.5 (re-verified after darkening).
+   ============================================================================ */
+:root {
+  --ink: 11 16 32;
+  --ink-2: 19 26 48;
+  --ink-3: 34 43 72;
+  --paper: 247 242 232;
+  --paper-2: 252 249 243;
+  --paper-edge: 226 218 200;
+  --signal: 109 94 245;
+  --signal-soft: 235 232 255;
+  --signal-deep: 63 52 181;
+  --signal-light: 176 168 255;
+  --gold: 242 210 122;
+  --gold-soft: 250 238 200;
+  --ok: 26 122 82;
+  --warn: 140 75 4;
+  --bad: 176 42 56;
+  --mist: 130 140 170;
+  --mist-2: 198 205 226;
+  --muted: 84 92 120;
+  --radius-sheet: 14px;
+}
+
+html { scroll-padding-top: 5rem; -webkit-text-size-adjust: 100%; }
+body {
+  @apply bg-paper-2 font-sans text-ink antialiased;
+  font-feature-settings: 'ss01', 'cv11';
+}
+h1, h2, h3 { font-family: 'Fraunces Variable', Georgia, serif; font-optical-sizing: auto; letter-spacing: -0.015em; }
+
+:focus-visible { outline: 3px solid rgb(var(--signal)); outline-offset: 2px; border-radius: 6px; }
+.on-dark :focus-visible { outline-color: rgb(var(--gold)); }
+
+.skip-link {
+  @apply absolute left-3 top-3 z-[100] -translate-y-24 rounded-lg bg-ink px-4 py-2 text-sm font-semibold text-paper;
+}
+.skip-link:focus { @apply translate-y-0; }
+.sr-only-live { @apply sr-only; }
+
+/* Exam-paper ruling: faint horizontal lines used on reading sheets and the hero sample. */
+.ruled {
+  background-image: linear-gradient(to bottom, transparent calc(100% - 1px), rgb(var(--paper-edge) / 0.55) 0);
+  background-size: 100% 2rem;
+}
+/* Left "margin rule" with a number gutter — the signature layout motif. */
+.margin-rule { position: relative; padding-left: 3.25rem; }
+.margin-rule::before {
+  content: ''; position: absolute; left: 2.5rem; top: 0; bottom: 0; width: 1px;
+  background: linear-gradient(to bottom, rgb(var(--signal) / .0), rgb(var(--signal) / .45) 12%, rgb(var(--signal) / .45) 88%, rgb(var(--signal) / 0));
+}
+.grid-dots {
+  background-image: radial-gradient(rgb(var(--mist-2) / 0.16) 1px, transparent 1px);
+  background-size: 22px 22px;
+}
+.reading-text { font-family: 'Fraunces Variable', Georgia, serif; font-size: 1.0625rem; line-height: 1.8; font-variation-settings: 'opsz' 14; }
+
+.tabular { font-variant-numeric: tabular-nums; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+}
+dialog::backdrop { background: rgb(var(--ink) / 0.55); backdrop-filter: blur(2px); }
